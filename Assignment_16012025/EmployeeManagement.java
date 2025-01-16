@@ -1,12 +1,19 @@
-package emp;
+package Assignment_16012025;
 
-import emp.Menu;
-import emp.Employee;
+import Assignment_16012025.Menu;
+import Assignment_16012025.Employee;
+import Assignment_16012025.CEO;
 import java.util.Scanner;
 
 public class EmployeeManagement {
+    static CEO ceo;
+    static {
+        ceo = CEO.getObject();
+    }
+
     public static void main(String[] args) {
         Employee[] employees = new Employee[100];
+        employees[0] = ceo;
         Scanner scanner = new Scanner(System.in);
         int count = 1;
         while (true) {
@@ -40,15 +47,15 @@ public class EmployeeManagement {
                         int age = Employee.validateAge(scanner, 21, 60);
 
                         if (type == 1) {
-                            employees[count] = new Manager(name, id, age);
+                            employees[count] = Employee.getEmployee(EmployeeType.MANAGER, name, id, age);
                         } else if (type == 2) {
-                            employees[count] = new Clerk(name, id, age);
+                            employees[count] = Employee.getEmployee(EmployeeType.CLERK, name, id, age);
                         } else {
-                            employees[count] = new Programmer(name, id, age);
+                            employees[count] = Employee.getEmployee(EmployeeType.PROGRAMMER, name, id, age);
                         }
                         count += 1;
                     }
-x
+
                     break;
                 case 2:
                     for (int i = 0; i < employees.length; i++) {
