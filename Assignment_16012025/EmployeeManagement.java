@@ -53,6 +53,7 @@ public class EmployeeManagement {
                         } else {
                             employees[count] = Employee.getEmployee(EmployeeType.PROGRAMMER, name, id, age);
                         }
+
                         count += 1;
                     }
 

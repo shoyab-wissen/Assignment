@@ -197,7 +197,7 @@ final class CEO extends Employee {
 
     public static CEO getObject() {
         if (obj == null) {
-            obj = new CEO("Shoyab", 1000000, 60);
+            obj = new CEO("Shoyab", 60, 1000000);
         }
         return obj;
     }
