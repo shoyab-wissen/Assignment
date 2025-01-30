@@ -8,8 +8,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class DatabaseHandler {
+public class DatabaseHandler implements AutoCloseable {
     private static DatabaseHandler handler = null;
 
     private static Connection conn;
@@ -213,5 +214,10 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public void close() throws Exception {
+        conn.close();
     }
 }
