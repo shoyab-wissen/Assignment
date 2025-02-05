@@ -1,0 +1,16 @@
+{
+	"name": "Shoyab Siddique",
+	"address": {
+		"city": "mumbai",
+		"state": "maharastra"
+	},
+	"pan": "AAAAA1234B",
+	"aadhaar": "7438928473453",
+	"contract": [
+		{
+			"with": "someone",
+			"withAadhaar": "9293040595039",
+			"clause": "This is a contract between shoyab and someone"
+		}
+	]
+}
