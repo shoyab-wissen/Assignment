@@ -20,7 +20,7 @@ public class CalculatorMain {
         Calculator calculator = new Calculator();
         System.out.println("Addition: " + calculator.add(10, 20));
         System.out.println("Subtraction: " + calculator.subtract(20, 10));
-        System.out.println("Subtraction: " + calculator.multiply(20, 10));
+        System.out.println("Multiplication: " + calculator.multiply(20, 10));
 
     }
 }
