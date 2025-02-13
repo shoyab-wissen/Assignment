@@ -48,9 +48,9 @@ public class LegalDocument {
 	public static LegalDocument fromJson(String jsonString) {
 		JSONObject obj = new JSONObject(jsonString);
 		LegalDocument document = new LegalDocument();
-		document.setAadhaarCard(obj.getString("aadhaar"));
-		document.setPanNumber(obj.getString("pan"));
-		document.setName(obj.getString("name"));
+		document.setAadhaarCard(obj.has("aadhaar") ? obj.getString("aadhaar") : null);
+		document.setPanNumber(obj.has("pan") ? obj.getString("pan") : null);
+		document.setName(obj.has("name") ? obj.getString("name") : null);
 		JSONArray contract = new JSONArray(obj.getJSONArray("contract"));
 		List<Contract> contracts = new ArrayList<>();
 		contract.forEach((data)->contracts.add(Contract.fromJson(data.toString())));
@@ -60,8 +60,16 @@ public class LegalDocument {
 	}
 	@Override
 	public String toString() {
-		return "LegalDocument [aadhaarCard=" + aadhaarCard + ", panNumber=" + panNumber + ", name=" + name
-				+ ", address=" + address + ", contract=" + contract + "]";
+		StringBuilder builder = new StringBuilder();
+		String toPrint = builder.append("{\n")
+				.append("	Aadhaar Card: "+getAadhaarCard() + "\n")
+				.append("	Pan Number: " + getPanNumber() + "\n")
+				.append("	Name: " + getName() + "\n")
+				.append("	Address: " + getAddress().toString() + "\n")
+				.append("	Contract: " + getContract().toString() + "\n")
+				.append("}")
+				.toString();
+		return toPrint;
 	}
 	
 }

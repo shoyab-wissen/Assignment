@@ -17,7 +17,9 @@ public class Implementation {
 			while((line = bufferedReader.readLine()) != null) {
 				data += line + "\n";
 			}
-			LegalDocument.fromJson(data);
+			LegalDocument document = LegalDocument.fromJson(data);
+			System.out.println(document);
+			bufferedReader.close();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

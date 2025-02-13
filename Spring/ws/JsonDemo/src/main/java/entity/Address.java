@@ -29,14 +29,21 @@ public class Address {
 	public static Address fromJson(String jsonString) {
 		JSONObject obj = new JSONObject(jsonString);
 		Address a = new Address();
-		a.setCity(obj.getString("city"));
-		a.setCountry(obj.getString("country"));
-		a.setState(obj.getString("state"));
+		a.setCity(obj.has("city") ? obj.getString("city") : null);
+		a.setCountry(obj.has("country") ? obj.getString("country") : null);
+		a.setState(obj.has("state") ? obj.getString("state") : null);
 		return a;
 	}
 	@Override
 	public String toString() {
-		return "Address [city=" + city + ", state=" + state + ", country=" + country + "]";
+		String toPrint = new StringBuilder()
+				.append("{\n")
+				.append("		City: " + getCity() + "\n")
+				.append("		State: " + getState() + "\n")
+				.append("		Country: " + getCountry() + "\n")
+				.append("	}")
+				.toString();
+		return toPrint;
 	}
 	
 }

@@ -29,14 +29,21 @@ public class Contract {
 	public static Contract fromJson(String jsonString) {
 		JSONObject obj = new JSONObject(jsonString);
 		Contract c = new Contract();
-		c.setClause(obj.getString("clause"));
-		c.setWith(obj.getString("with"));
-		c.setWithAadhaar(obj.getString("withAadhaar"));
+		c.setClause(obj.has("clause") ? obj.getString("clause") : null);
+		c.setWith(obj.has("with") ? obj.getString("with") : null);
+		c.setWithAadhaar(obj.has("withAadhaar") ? obj.getString("withAadhaar") : null);
 		return c;
 	}
 	@Override
 	public String toString() {
-		return "Contract [with=" + with + ", withAadhaar=" + withAadhaar + ", clause=" + clause + "]";
+		String toPrint = new StringBuilder()
+				.append("{\n")
+				.append("		With: " + getWith() + "\n")
+				.append("		With Aadhaar: " + getWithAadhaar() + "\n")
+				.append("		Clause: " + getClause() + "\n")
+				.append("	}")
+				.toString();
+		return toPrint;
 	}
 	
 }
