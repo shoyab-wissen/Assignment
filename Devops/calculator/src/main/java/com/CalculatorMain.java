@@ -12,6 +12,11 @@ class Calculator {
     public int multiply(int a, int b) {
         return a * b;
     }
+
+    public int divide(int a, int b) {
+        return a / b;
+    }
+
 }
 
 public class CalculatorMain {
@@ -21,6 +26,7 @@ public class CalculatorMain {
         System.out.println("Addition: " + calculator.add(10, 20));
         System.out.println("Subtraction: " + calculator.subtract(20, 10));
         System.out.println("Multiplication: " + calculator.multiply(20, 10));
+        System.out.println("Division: " + calculator.divide(20, 10));
         System.out.println("------------Completed Execution----------");
 
     }
