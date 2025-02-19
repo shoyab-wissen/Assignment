@@ -17,8 +17,7 @@ public class DatabaseHandler implements AutoCloseable {
 
     private DatabaseHandler() {
         try {
-            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/empdb", "postgres", "tiger");
-
+            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5431/empdb", "postgres", "tiger");
         } catch (Exception e) {
             e.printStackTrace();
         }

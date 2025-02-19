@@ -13,10 +13,6 @@ create table department(
 department_name varchar(20) primary key
 );
 
-select * from designation;
-
-drop table employee;
-delete from department;
 create table employee(
 eid serial primary key,
 name varchar(30),
