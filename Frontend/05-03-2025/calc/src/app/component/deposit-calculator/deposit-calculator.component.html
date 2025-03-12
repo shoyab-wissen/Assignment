@@ -1,0 +1,35 @@
+<div class="calculator-container">
+  <div class="form-group">
+    <label for="principal">Principal</label>
+    <input
+      type="number"
+      id="principal"
+      placeholder="Enter principal amount"
+      [(ngModel)]="principal"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="tenure">Tenure</label>
+    <input
+      type="number"
+      id="tenure"
+      placeholder="Enter tenure in years (maximum 10 years)"
+      [(ngModel)]="tenure"
+      min="1"
+      [max]="MAX_TENURE"
+    />
+    <div class="hint">Maximum: {{ MAX_TENURE }} years</div>
+  </div>
+
+  <div class="info-group">
+    <div class="info-label">Interest</div>
+    <div class="info-value">{{ INTEREST_RATE }}%</div>
+  </div>
+
+  <div *ngIf="maturityResult" class="result">
+    {{ maturityResult }}
+  </div>
+
+  <button class="calculate-btn" (click)="calculateMaturity()">CALCULATE</button>
+</div>

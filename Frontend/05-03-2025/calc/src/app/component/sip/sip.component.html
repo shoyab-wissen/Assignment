@@ -1,0 +1,71 @@
+<!-- sip-calculator.component.html -->
+<div class="calculator-container">
+  <h2>SIP Calculator</h2>
+  <form [formGroup]="sipForm" (ngSubmit)="calculateSIP()">
+    <div class="form-group">
+      <label for="monthlySip">Monthly SIP</label>
+      <input
+        type="number"
+        id="monthlySip"
+        formControlName="monthlySip"
+        placeholder="Enter amount"
+      />
+      <div
+        class="hint"
+        *ngIf="
+          sipForm.get('monthlySip')?.hasError('required') &&
+          sipForm.get('monthlySip')?.touched
+        "
+      >
+        Monthly SIP is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="duration">Duration (in years)</label>
+      <input
+        type="number"
+        id="duration"
+        formControlName="duration"
+        placeholder="Enter years"
+      />
+      <div
+        class="hint"
+        *ngIf="
+          sipForm.get('duration')?.hasError('required') &&
+          sipForm.get('duration')?.touched
+        "
+      >
+        Duration is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="roi">Expected Return Rate (%) (-25% to 25%)</label>
+      <input
+        type="number"
+        id="roi"
+        formControlName="roi"
+        min="-25"
+        max="25"
+        placeholder="Enter percentage"
+      />
+      <div
+        class="hint"
+        *ngIf="sipForm.get('roi')?.invalid && sipForm.get('roi')?.touched"
+      >
+        Return rate must be between -25% and 25%
+      </div>
+    </div>
+
+    <button type="submit" class="calculate-btn" [disabled]="sipForm.invalid">
+      Calculate
+    </button>
+  </form>
+
+  <div class="result" *ngIf="totalAmount !== null">
+    <div>Total Invested Amount: ₹{{ investedAmount | number : "1.0-0" }}</div>
+    <div>Estimated Returns: ₹{{ returns | number : "1.0-0" }}</div>
+    <div>Total Value: ₹{{ totalAmount | number : "1.0-0" }}</div>
+  </div>
+</div>

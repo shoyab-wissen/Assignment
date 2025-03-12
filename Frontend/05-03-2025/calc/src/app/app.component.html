@@ -1,0 +1,52 @@
+<div class="container">
+  <h1 class="app-title">{{ title }}</h1>
+
+  <div class="tabs-container">
+    <div class="tabs">
+      <div
+        class="tab"
+        [class.active]="activeTab === 'loan'"
+        (click)="setActiveTab('loan')"
+      >
+        LOAN Calculator
+      </div>
+      <div
+        class="tab"
+        [class.active]="activeTab === 'deposit'"
+        (click)="setActiveTab('deposit')"
+      >
+        DEPOSIT Calculator
+      </div>
+      <div
+        class="tab"
+        [class.active]="activeTab === 'pipes'"
+        (click)="setActiveTab('pipes')"
+      >
+        Pipes Demo
+      </div>
+      <div
+        class="tab"
+        [class.active]="activeTab === 'sip'"
+        (click)="setActiveTab('sip')"
+      >
+        Simple Interest Calculator
+      </div>
+    </div>
+
+    <div class="tab-content">
+      <app-loan-calculator *ngIf="activeTab === 'loan'"></app-loan-calculator>
+      <app-deposit-calculator
+        *ngIf="activeTab === 'deposit'"
+      ></app-deposit-calculator>
+      <app-pipes *ngIf="activeTab === 'pipes'"></app-pipes>
+      <app-sip *ngIf="activeTab === 'sip'"></app-sip>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      © 2025 Financial Calculators. All rights reserved. Made By Shoyab Siddique
+      With 💗
+    </p>
+  </footer>
+</div>

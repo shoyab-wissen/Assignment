@@ -1,0 +1,72 @@
+<div class="calculator-container">
+  <div class="form-group">
+    <label for="applicant">Applicant</label>
+    <input
+      type="text"
+      id="applicant"
+      placeholder="Enter applicant name"
+      [(ngModel)]="applicant"
+    />
+  </div>
+
+  <div class="form-group">
+    <label>Type</label>
+    <div class="option-group">
+      <div
+        class="option"
+        [class.selected]="loanType === 'HOME'"
+        (click)="onLoanTypeChange('HOME')"
+      >
+        HOME
+      </div>
+      <div
+        class="option"
+        [class.selected]="loanType === 'CAR'"
+        (click)="onLoanTypeChange('CAR')"
+      >
+        CAR
+      </div>
+      <div
+        class="option"
+        [class.selected]="loanType === 'PERSONAL'"
+        (click)="onLoanTypeChange('PERSONAL')"
+      >
+        PERSONAL
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="tenure">Tenure</label>
+    <input
+      type="number"
+      id="tenure"
+      [placeholder]="tenurePlaceholder"
+      [(ngModel)]="tenure"
+      min="1"
+      [max]="currentConfig.maxTenure"
+    />
+    <div class="hint">Maximum: {{ currentConfig.maxTenure }} years</div>
+  </div>
+
+  <div class="form-group">
+    <label for="amount">Amount</label>
+    <input
+      type="number"
+      id="amount"
+      [placeholder]="amountPlaceholder"
+      [(ngModel)]="amount"
+    />
+    <div class="hint">
+      Range: ₹{{ currentConfig.minAmount.toLocaleString("en-IN") }} - ₹{{
+        currentConfig.maxAmount.toLocaleString("en-IN")
+      }}
+    </div>
+  </div>
+
+  <div *ngIf="emiResult" class="result">
+    {{ emiResult }}
+  </div>
+
+  <button class="calculate-btn" (click)="calculateEMI()">CALCULATE</button>
+</div>

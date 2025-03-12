@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deposit Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      h1 {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+      }
+      .form-group label {
+        font-weight: bold;
+        width: 110px;
+        font-size: 18px;
+      }
+      input[type="number"] {
+        padding: 8px;
+        width: 300px;
+        border: 2px solid #000;
+        box-sizing: border-box;
+        height: 40px;
+        font-size: 16px;
+      }
+      .info-text {
+        font-size: 18px;
+        margin-left: 110px;
+      }
+      .calculate-btn {
+        display: block;
+        width: 250px;
+        padding: 15px;
+        margin: 40px auto;
+        text-align: center;
+        border: 2px solid #000;
+        border-radius: 50px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 18px;
+      }
+      .result {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+      .dep-calc {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dep-calc">
+      <h1>Deposit Calculator</h1>
+
+      <div class="form-group">
+        <label for="principal">Principal</label>
+        <input
+          type="number"
+          id="principal"
+          placeholder="Enter principal amount"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Tenure</label>
+        <div class="info-text">< 10 Yrs</div>
+      </div>
+
+      <div class="form-group">
+        <label>Interest</label>
+        <div class="info-text">7%</div>
+      </div>
+
+      <div class="result" id="maturityResult">Maturity</div>
+
+      <div class="calculate-btn" id="calculateBtn">CALCULATE</div>
+    </div>
+
+    <script>
+      const INTEREST_RATE = 7;
+      const MAX_TENURE = 10;
+
+      document
+        .getElementById("calculateBtn")
+        .addEventListener("click", function () {
+          const principal = parseFloat(
+            document.getElementById("principal").value
+          );
+          if (isNaN(principal) || principal <= 0) {
+            alert("Please enter a valid principal amount");
+            return;
+          }
+
+          let tenure = prompt("Enter tenure in years (maximum 10 years):");
+          tenure = parseFloat(tenure);
+
+          if (isNaN(tenure) || tenure <= 0) {
+            alert("Please enter a valid tenure");
+            return;
+          }
+
+          if (tenure > MAX_TENURE) {
+            alert(`Maximum tenure is ${MAX_TENURE} years`);
+            return;
+          }
+
+          const rate = INTEREST_RATE / 100;
+          const maturityAmount = principal * Math.pow(1 + rate, tenure);
+
+          document.getElementById(
+            "maturityResult"
+          ).textContent = `Maturity: ₹${Math.round(
+            maturityAmount
+          ).toLocaleString("en-IN")}`;
+        });
+    </script>
+  </body>
+</html>

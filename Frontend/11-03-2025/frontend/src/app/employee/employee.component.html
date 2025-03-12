@@ -1,0 +1,78 @@
+<h2>Employee Creation or Updation</h2>
+<hr />
+<form #empForm="ngForm" (ngSubmit)="onSubmit(empForm)" class="emp-form">
+  <label for="eid">ID:</label>
+  <input
+    type="number"
+    name="eid"
+    id="eid"
+    [ngStyle]="{ disabled: this.update }"
+    [(ngModel)]="this.empService.selectedEmployee.eid"
+  />
+
+  <label for="ename">Name:</label>
+  <input
+    type="text"
+    name="name"
+    id="ename"
+    [(ngModel)]="this.empService.selectedEmployee.name"
+  />
+
+  <label for="esal">Salary:</label>
+  <input
+    type="number"
+    name="salary"
+    id="esal"
+    [(ngModel)]="this.empService.selectedEmployee.salary"
+  />
+
+  <label for="edept">Designation:</label>
+  <input
+    type="text"
+    name="designation"
+    id="edept"
+    [(ngModel)]="this.empService.selectedEmployee.designation"
+  />
+
+  <label for="age">Age:</label>
+  <input
+    type="number"
+    name="age"
+    id="age"
+    [(ngModel)]="this.empService.selectedEmployee.age"
+  />
+
+  <div class="form-buttons">
+    <input type="submit" value="Submit" class="btn btn-submit" />
+    <input
+      type="reset"
+      value="Reset"
+      (click)="resetForm(empForm)"
+      class="btn btn-reset"
+    />
+  </div>
+</form>
+
+<hr />
+<h2>Employee Details</h2>
+<table class="emp-table">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Salary</th>
+    <th>Designation</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let emp of this.empService.employees">
+    <td>{{ emp.eid }}</td>
+    <td>{{ emp.name }}</td>
+    <td>{{ emp.age }}</td>
+    <td>{{ emp.salary }}</td>
+    <td>{{ emp.designation }}</td>
+    <td class="action-buttons">
+      <button class="btn btn-edit" (click)="onEdit(emp)">Edit</button>
+      <button class="btn btn-delete" (click)="onDelete(emp.eid)">Delete</button>
+    </td>
+  </tr>
+</table>

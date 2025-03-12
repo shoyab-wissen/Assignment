@@ -1,0 +1,188 @@
+<!-- banking.component.html -->
+<div class="container">
+  <!-- Welcome screen when logged in -->
+  <div *ngIf="loggedInUser" class="welcome-container">
+    <h2>Welcome, {{ loggedInUser }}!</h2>
+    <p>You have successfully logged in to your account.</p>
+    <button (click)="logout()" class="btn btn-logout">Logout</button>
+  </div>
+
+  <!-- Login and Registration forms -->
+  <div *ngIf="!loggedInUser" class="form-container">
+    <!-- Toggle buttons for switching forms -->
+    <div class="toggle-buttons">
+      <button [class.active]="!isLogin" (click)="isLogin = false">
+        Register
+      </button>
+      <button [class.active]="isLogin" (click)="isLogin = true">Login</button>
+    </div>
+
+    <!-- Registration Form -->
+    <form
+      *ngIf="!isLogin"
+      [formGroup]="registerForm"
+      (ngSubmit)="onRegister()"
+      class="form"
+    >
+      <h2>Registration</h2>
+
+      <div class="form-group">
+        <label for="customerId">Customer ID</label>
+        <input
+          type="text"
+          id="customerId"
+          formControlName="customerId"
+          placeholder="Enter 7-digit Customer ID"
+        />
+        <div
+          class="error"
+          *ngIf="
+            registerForm.get('customerId')?.invalid &&
+            registerForm.get('customerId')?.touched
+          "
+        >
+          Customer ID must be exactly 7 digits
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          placeholder="Enter username"
+        />
+        <div
+          class="error"
+          *ngIf="
+            registerForm.get('username')?.invalid &&
+            registerForm.get('username')?.touched
+          "
+        >
+          Username must be at least 5 characters and contain only letters
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="Enter password"
+        />
+        <div
+          class="error"
+          *ngIf="
+            registerForm.get('password')?.invalid &&
+            registerForm.get('password')?.touched
+          "
+        >
+          Password must be at least 8 characters with 1 uppercase, 1 lowercase,
+          and 1 special character
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          placeholder="Confirm password"
+        />
+        <div
+          class="error"
+          *ngIf="
+            registerForm.hasError('passwordMismatch') &&
+            registerForm.get('confirmPassword')?.touched
+          "
+        >
+          Passwords do not match
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="accountNo">Account Number</label>
+        <input
+          type="text"
+          id="accountNo"
+          formControlName="accountNo"
+          placeholder="Enter account number"
+        />
+        <div
+          class="error"
+          *ngIf="
+            registerForm.get('accountNo')?.invalid &&
+            registerForm.get('accountNo')?.touched
+          "
+        >
+          Account number must have at least 6 digits
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Register</button>
+
+      <div class="form-footer">
+        Already have an account?
+        <a (click)="toggleForm()">Login</a>
+      </div>
+    </form>
+
+    <!-- Login Form -->
+    <form
+      *ngIf="isLogin"
+      [formGroup]="loginForm"
+      (ngSubmit)="onLogin()"
+      class="form"
+    >
+      <h2>Login</h2>
+
+      <div class="form-group">
+        <label for="loginCustomerId">Customer ID</label>
+        <input
+          type="text"
+          id="loginCustomerId"
+          formControlName="customerId"
+          placeholder="Enter 7-digit Customer ID"
+        />
+        <div
+          class="error"
+          *ngIf="
+            loginForm.get('customerId')?.invalid &&
+            loginForm.get('customerId')?.touched
+          "
+        >
+          Please enter a valid 7-digit Customer ID
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="loginPassword">Password</label>
+        <input
+          type="password"
+          id="loginPassword"
+          formControlName="password"
+          placeholder="Enter password"
+        />
+        <div
+          class="error"
+          *ngIf="
+            loginForm.get('password')?.invalid &&
+            loginForm.get('password')?.touched
+          "
+        >
+          Password is required
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Login</button>
+
+      <div class="form-footer">
+        Don't have an account?
+        <a (click)="toggleForm()">Register</a>
+      </div>
+    </form>
+  </div>
+</div>

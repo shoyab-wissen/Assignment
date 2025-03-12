@@ -1,0 +1,21 @@
+<h1>Currency Converter</h1>
+
+<input type="number" [(ngModel)]="currency" />
+<select [(ngModel)]="country">
+  <option *ngFor="let currency of currencies" [value]="currency">
+    {{ currency }}
+  </option>
+</select>
+
+<h2>Converted Amount:</h2>
+{{ currency | converter : country }}
+
+<hr />
+
+<h1>Circle Operations</h1>
+
+<input type="number" [(ngModel)]="radius" />
+
+{{ radius | circlearea }}
+{{ radius | circlediameter }}
+{{ radius | circleperimiter }}

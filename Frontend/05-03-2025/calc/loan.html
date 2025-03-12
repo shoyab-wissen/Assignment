@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LOAN Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        /* max-width: 600px; */
+        /* margin: 0 auto; */
+        /* padding: 20px; */
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        font-weight: bold;
+        width: 100px;
+      }
+      input[type="text"],
+      input[type="number"] {
+        padding: 8px;
+        width: 300px;
+        border: 2px solid #000;
+      }
+      .option-group {
+        display: flex;
+        gap: 10px;
+      }
+      .option {
+        cursor: pointer;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+      }
+      .option.selected {
+        background-color: #f0f0f0;
+        font-weight: bold;
+      }
+      .calculate-btn {
+        display: block;
+        width: 250px;
+        padding: 15px;
+        margin: 30px auto;
+        text-align: center;
+        border: 2px solid #000;
+        border-radius: 50px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      .result {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+      .loan-calc {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loan-calc">
+      <h1>LOAN Calculator</h1>
+
+      <div class="form-group">
+        <label for="applicant">Applicant</label>
+        <input type="text" id="applicant" placeholder="Enter applicant name" />
+      </div>
+
+      <div class="form-group">
+        <label>Type</label>
+        <div class="option-group">
+          <div class="option selected" data-type="HOME">HOME</div>
+          <div class="option" data-type="CAR">CAR</div>
+          <div class="option" data-type="PERSONAL">PERSONAL</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="tenure">Tenure</label>
+        <input
+          type="number"
+          id="tenure"
+          placeholder="Enter tenure in years"
+          min="1"
+        />
+      </div>
+      <div class="form-group">
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" placeholder="Enter loan amount" />
+      </div>
+
+      <div class="calculate-btn" id="calculateBtn">CALCULATE</div>
+
+      <div class="result" id="emiResult"></div>
+    </div>
+
+    <script>
+      const loanConfigs = {
+        HOME: {
+          interest: 9,
+          maxTenure: 30,
+          minAmount: 500000,
+          maxAmount: 10000000,
+        },
+        CAR: {
+          interest: 11,
+          maxTenure: 7,
+          minAmount: 100000,
+          maxAmount: 1500000,
+        },
+        PERSONAL: {
+          interest: 15,
+          maxTenure: 5,
+          minAmount: 10000,
+          maxAmount: 500000,
+        },
+      };
+
+      const options = document.querySelectorAll(".option");
+
+      options.forEach((option) => {
+        option.addEventListener("click", function () {
+          const parent = this.parentElement;
+
+          parent.querySelectorAll(".option").forEach((sibling) => {
+            sibling.classList.remove("selected");
+          });
+
+          this.classList.add("selected");
+
+          const loanType = this.getAttribute("data-type");
+          const config = loanConfigs[loanType];
+
+          document.getElementById(
+            "tenure"
+          ).placeholder = `Enter tenure (max ${config.maxTenure} years)`;
+          document.getElementById(
+            "amount"
+          ).placeholder = `Enter amount (${config.minAmount}-${config.maxAmount})`;
+        });
+      });
+
+      document
+        .getElementById("calculateBtn")
+        .addEventListener("click", function () {
+          const applicant = document.getElementById("applicant").value.trim();
+          if (!applicant) {
+            alert("Please enter applicant name");
+            return;
+          }
+
+          const loanType = document
+            .querySelector(".option-group .option.selected[data-type]")
+            .getAttribute("data-type");
+          const config = loanConfigs[loanType];
+
+          const tenureYears = parseInt(document.getElementById("tenure").value);
+          if (isNaN(tenureYears) || tenureYears <= 0) {
+            alert("Please enter a valid tenure");
+            return;
+          }
+          if (tenureYears > config.maxTenure) {
+            alert(
+              `Maximum tenure for ${loanType} loan is ${config.maxTenure} years`
+            );
+            return;
+          }
+
+          const loanAmount = parseInt(document.getElementById("amount").value);
+          if (isNaN(loanAmount) || loanAmount <= 0) {
+            alert("Please enter a valid loan amount");
+            return;
+          }
+          if (loanAmount < config.minAmount || loanAmount > config.maxAmount) {
+            alert(
+              `Loan amount for ${loanType} must be between ${config.minAmount} and ${config.maxAmount}`
+            );
+            return;
+          }
+
+          const interestRate = config.interest;
+
+          const monthlyInterestRate = interestRate / (12 * 100);
+
+          const tenureMonths = tenureYears * 12;
+
+          const emi =
+            (loanAmount *
+              monthlyInterestRate *
+              Math.pow(1 + monthlyInterestRate, tenureMonths)) /
+            (Math.pow(1 + monthlyInterestRate, tenureMonths) - 1);
+
+          document.getElementById(
+            "emiResult"
+          ).textContent = `EMI: ₹${Math.round(emi).toLocaleString(
+            "en-IN"
+          )} for ${tenureMonths} months at ${interestRate}% interest rate`;
+        });
+
+      const initialLoanType = document
+        .querySelector(".option-group .option.selected[data-type]")
+        .getAttribute("data-type");
+      const initialConfig = loanConfigs[initialLoanType];
+      document.getElementById(
+        "tenure"
+      ).placeholder = `Enter tenure (max ${initialConfig.maxTenure} years)`;
+      document.getElementById(
+        "amount"
+      ).placeholder = `Enter amount (${initialConfig.minAmount}-${initialConfig.maxAmount})`;
+    </script>
+  </body>
+</html>

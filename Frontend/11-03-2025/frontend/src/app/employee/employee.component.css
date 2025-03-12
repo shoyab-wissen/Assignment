@@ -1,0 +1,110 @@
+/* Form Styling */
+.emp-form {
+  max-width: 400px;
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  justify-self: center;
+  width: 100%;
+}
+
+.emp-form label {
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+}
+
+.emp-form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Form Buttons */
+.form-buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-submit {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-reset {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-submit:hover {
+  background-color: #45a049;
+}
+
+.btn-reset:hover {
+  background-color: #d32f2f;
+}
+
+/* Table Styling */
+.emp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.emp-table th,
+.emp-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.emp-table th {
+  background-color: #538313;
+  color: white;
+}
+
+.emp-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.emp-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-edit {
+  background-color: #2196f3;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #1976d2;
+}
+
+.btn-delete:hover {
+  background-color: #d32f2f;
+}
